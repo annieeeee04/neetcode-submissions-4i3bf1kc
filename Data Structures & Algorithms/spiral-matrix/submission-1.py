@@ -1,0 +1,25 @@
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        ROW, COL = len(matrix), len(matrix[0])
+        l, r    = 0, COL-1  # left/right → column boundaries
+        up, down = 0, ROW-1 # up/down   → row boundaries
+        out = []
+
+        while l <= r and up <= down:
+            for i in range(l,r+1):
+                out.append(matrix[up][i])
+            up += 1
+            for i in range(up, down+1):
+                out.append(matrix[i][r])
+            r -= 1
+
+            if up <= down:
+                for i in range(r, l-1, -1):
+                    out.append(matrix[down][i])
+                down -= 1
+            
+            if l <= r:
+                for i in range(down, up-1, -1):
+                    out.append(matrix[i][l])
+                l += 1
+        return out
